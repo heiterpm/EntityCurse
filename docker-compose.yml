@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  entityaspcurso:
+    image: ${DOCKER_REGISTRY-}entityaspcurso
+    build:
+      context: .
+      dockerfile: EntityAspCurso/Dockerfile
+  
+  mssql-server:
+    container_name: bancoEntity
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=SenhaSecreta@123
+    ports: 
+      - 1433:1433 
+    volumes:
+      - ./mssql/:/var/opt/mssql/data
